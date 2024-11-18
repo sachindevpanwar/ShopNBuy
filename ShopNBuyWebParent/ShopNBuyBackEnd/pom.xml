@@ -19,9 +19,21 @@
 
 	<dependencies>
 	<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.32</version> <!-- Use the appropriate version for your setup -->
+</dependency>
+
+	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-devtools</artifactId>
 	</dependency>
+	<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.32</version>  <!-- Ensure you're using a supported version -->
+    <scope>runtime</scope>
+</dependency>
 	<dependency>
 		<groupId>com.shopnbuy</groupId>
 		<artifactId>ShopNBuyCommon</artifactId>
