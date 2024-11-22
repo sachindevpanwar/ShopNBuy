@@ -15,49 +15,47 @@ public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(length = 40, nullable = false,unique=true)
+	@Column(length = 40, nullable = false, unique = true)
 	private String name;
 	@Column(length = 150, nullable = false)
 	private String description;
-	
-	
+
 	public int getId() {
 		return id;
 	}
+
 	public Role() {
-		
-		
+
 	}
 
-	
 	public Role(int id) {
-		
+
 		this.id = id;
-		
+
 	}
+
 	public Role(String name) {
-		
+
 		this.name = name;
-		
+
 	}
-	
-	public Role( String name, String description) {
-		
+
+	public Role(String name, String description) {
+
 		this.name = name;
 		this.description = description;
 	}
 
-	
-	
-	
 	@Override
 	public String toString() {
-		return "Role [name=" + name + "]";
+		return this.name;
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -69,24 +67,25 @@ public class Role {
 		Role other = (Role) obj;
 		return id == other.id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
-	
-	
+
 }

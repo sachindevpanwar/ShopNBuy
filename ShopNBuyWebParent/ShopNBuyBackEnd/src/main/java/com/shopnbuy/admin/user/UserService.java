@@ -2,6 +2,7 @@ package com.shopnbuy.admin.user;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.common.entity.User;
@@ -9,12 +10,12 @@ import com.common.entity.User;
 @Service
 public class UserService {
 
-	//@Autowired
+	@Autowired
 	private UserRepository repo;
-	
+
 	public List<User> listAll() {
-		
-	return (List<User>) repo.findAll();
+
+		return (List<User>) repo.findAll();
 	}
-	
+
 }
