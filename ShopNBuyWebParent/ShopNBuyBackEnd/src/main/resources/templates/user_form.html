@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Create New User</title>
+    <title>[[${pageTitle}]]</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css"/>
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
@@ -35,7 +35,7 @@
                 </div>
             </nav>
         </div>
-        <h1 class="mt-4">Manage Users | Create New User</h1>
+        <h1 class="mt-4">Manage Users | [[${pageTitle}]]</h1>
 
         <div class="mt-4">
             <form th:action="@{/users/save}" method="post" style="max-width: 700px; margin: auto;" th:object="${user}" onsubmit="return checkEmailUnique(this);">
@@ -127,32 +127,42 @@
     </div>
 
     <script type="text/javascript">
-     function checkEmailUnique(form){
-        url="[[@{/users/check_email}]]";
-        userEmail = $("#email").val();
-        csrfValue = $("input[name='_csrf']").val();
-        params = {email: userEmail, _csrf: csrfValue};
+        function checkEmailUnique(form) {
+    let url = "[[@{/users/check_email}]]";  // Thymeleaf URL syntax
+    let userEmail = $("#email").val();
+    let userId = $("#id").val();
+    let csrfValue = $("input[name='_csrf']").val();
 
-        $.post(url, params, function(response){
-            if(response == "OK")
-              form.submit();
-            else if(response = "Duplicated"){
-                showModalDialog("Warning", "There is another user with email :  " + userEmail);
-            }  else{
-                showModalDialog("Error", "Unknown response from server");
-            }
-        }).fail(function(){
-            showModalDialog("Error", "Could not connect to the server");
-        })
+    let params = {id: userId, email: userEmail, _csrf: csrfValue};
 
-        return false;
-     }
+    $.post(url, params, function (response) {
+        if (response === "OK") {
+            form.submit();  // Submit the form if email is unique
+        } else if (response === "Duplicated") {
+            showWarningModal("There is another user having the email " + userEmail);
+        } else {
+            showErrorModal("Unknown response from server");
+        }
+    }).fail(function () {
+        showErrorModal("Could not connect to the server");
+    });
 
-     function showModalDialog(title, message){
-        $("#modalTitle").text(title);
-        $("#modalBody").text(message);
-        $("#modalDialog").modal('show');
-     }
+    return false;  // Prevent the default form submission
+}
+
+function showModalDialog(title, message) {
+    $("#modalTitle").text(title);
+    $("#modalBody").text(message);
+    $("#modalDialog").modal("show");
+}
+
+function showErrorModal(message) {
+    showModalDialog("Error", message);
+}
+
+function showWarningModal(message) {
+    showModalDialog("Warning", message);
+}
     </script>
 </body>
 </html>
